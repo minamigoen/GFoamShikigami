@@ -6,7 +6,7 @@ APIキー不要・完全無料で **Googleフォームを自動生成** する�
 ---
 
 📘 **詳細記事**  
-👉 GeminiとGASでGoogleフォーム自動作成システムを作ってみた（Gフォーム式神 v1）
+👉 【完成】チームで使えるGeminiとGASでGoogleフォーム自動作成システムを作ってみた（Gフォーム式神 v1）
 https://note.com/_cop/n/nc84ae9673028?sub_rt=share_pb
 
 ---
