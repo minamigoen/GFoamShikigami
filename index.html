@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    /* ------------------------------ */
+    /* 1. 変数定義 (ダークテーマ)        */
+    /* ------------------------------ */
+    :root {
+      --bg-main: #1d232a; /* メイン背景 (暗い) */
+      --bg-secondary: #2a323c; /* コンポーネント背景 (少し明るい) */
+      --bg-input: #191e24; /* テキストエリア背景 */
+      
+      --text-main: #e2e8f0; /* メインテキスト */
+      --text-muted: #718096; /* 補助テキスト (より暗くして半透明感を強調) */
+      
+      --accent-color: #0091A9; /* 指定されたキーカラー */
+      --accent-hover: #00a9c6; /* キーカラーのホバー色 */
+      
+      --border-color: #4a5568; /* 境界線 */
+      --focus-shadow: rgba(0, 145, 169, 0.5); /* フォーカス時の影 */
+      
+      --error-color: #f87171; /* エラー */
+      --success-color: #4ade80; /* 成功 */
+    }
+
+    /* ------------------------------ */
+    /* 2. 基本スタイル                  */
+    /* ------------------------------ */
+    body {
+      padding: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ▼ 名称変更 ▼ */
+    h3 {
+      font-size: 1.5em;
+      font-weight: 300;
+      color: var(--text-main);
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 8px;
+      margin-top: 0;
+    }
+    
+    h3 strong {
+        color: var(--accent-color);
+        font-weight: 600;
+    }
+    /* ▲ 名称変更 ▲ */
+
+    h4 {
+      font-size: 1.1em;
+      color: var(--text-muted);
+      margin-top: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    p {
+      color: var(--text-muted);
+      font-size: 0.95em;
+    }
+    
+    a {
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+    
+    /* ------------------------------ */
+    /* 3. コンポーネント              */
+    /* ------------------------------ */
+    
+    /* ▼ テキストエリアのスタイル変更 ▼ */
+    #prompt-area {
+      width: 100%;
+      height: 300px; 
+      margin-bottom: 16px;
+      box-sizing: border-box; 
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      background-color: var(--bg-input);
+      
+      /* デフォルトの文字色を「半透明」に見えるよう--text-mutedに変更 */
+      color: var(--text-muted);
+      
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 0.9em;
+      /* colorの切り替えもアニメーションさせる */
+      transition: border-color 0.2s, box-shadow 0.2s, color 0.2s; 
+    }
+    
+    /* * JSで 'has-input' クラスが付与されたら (＝入力中になったら)
+     * 文字色を通常色 (--text-main) に戻す
+     */
+    #prompt-area.has-input {
+        color: var(--text-main);
+    }
+    
+    #prompt-area:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px var(--focus-shadow);
+      /* フォーカスが当たった時も文字色を即座に通常色に戻す */
+      color: var(--text-main); 
+    }
+    /* ▲ テキストエリアのスタイル変更 ▲ */
+
+
+    /* 送信ボタン (プライマリ) */
+    #submit-button {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+      width: 100%; 
+      box-sizing: border-box;
+    }
+    
+    #submit-button:hover:not(:disabled) {
+      background-color: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+    
+    #submit-button:disabled {
+      background-color: var(--border-color);
+      color: var(--text-muted);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    
+    /* 補助ボタン (Gemリンク用) */
+    .secondary-button {
+      display: inline-block;
+      background-color: transparent;
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none; 
+      transition: background-color 0.2s ease, color 0.2s ease;
+      margin-bottom: 16px; 
+    }
+    
+    .secondary-button:hover {
+      background-color: var(--focus-shadow); 
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    /* 結果表示エリア */
+    #result {
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px dashed var(--border-color);
+      background-color: var(--bg-secondary);
+      min-height: 50px;
+      word-wrap: break-word;
+      border-radius: 8px;
+      color: var(--text-muted);
+    }
+    
+    #result b {
+        color: var(--text-main);
+    }
+
+    /* 状態別スタイル */
+    .loading-icon, .success-icon, .error-icon {
+        font-weight: bold;
+        font-size: 1.2em;
+        margin-right: 8px;
+    }
+    .loading-icon { color: var(--text-muted); }
+    .success-icon { color: var(--success-color); }
+    .error-icon { color: var(--error-color); }
+
+    .error {
+      color: var(--error-color);
+      font-weight: bold;
+    }
+  </style>
+  </head>
+<body>
+  
+  <h3>Gフォーム式神 <strong>v1</strong></h3>
+  <p>フォームの「設計図 (JSON)」を以下に貼り付け、ボタンを押してください。</p>
+  
+  <a href="https://gemini.google.com/gem/1tRujsIVCg4fKe7Hn_SNYaDYh4WMOZ9gN?usp=sharing" target="_blank" rel="noopener noreferrer" class="secondary-button">
+    📝 Gemプロンプトを編集/コピー
+  </a>
+
+  <textarea id="prompt-area">{
+  "title": "（ここにJSONを貼り付け）",
+  "description": "テスト用のJSONをここに入力してください。",
+  "items": [
+    {
+      "type": "text",
+      "title": "お名前",
+      "required": true
+    }
+  ]
+}
+  </textarea>
+  
+  <button id="submit-button" onclick="submitFormRequest()">
+    フォームを構築
+  </button>
+  
+  <h4>実行結果</h4>
+  <div id="result">
+    ここに結果が表示されます。
+  </div>
+
+  <script>
+    const submitButton = document.getElementById('submit-button');
+    const resultDiv = document.getElementById('result');
+    
+    // --- ▼ ここからスクリプト追加 ▼ ---
+    const promptArea = document.getElementById('prompt-area');
+    // 'isPristine' は「まだ一度も触られていない」状態を示すフラグ
+    let isPristine = true; 
+
+    // テキストエリアにフォーカスが当たった時の処理
+    promptArea.onfocus = function() {
+      // もし、まだ一度も触られていなければ
+      if (isPristine) {
+        promptArea.value = ''; // 中身を空にする
+        promptArea.classList.add('has-input'); // CSSクラスを追加して文字色を濃くする
+        isPristine = false; // 「触られた」状態に変更
+      }
+    };
+    
+    // ユーザーが何か入力した時の処理
+    promptArea.oninput = function() {
+      // 手動で入力（またはペースト）された場合も「触られた」状態にする
+      if (isPristine) {
+        isPristine = false;
+        promptArea.classList.add('has-input');
+      }
+    };
+    // --- ▲ ここまでスクリプト追加 ▲ ---
+
+
+    // 1. 「作成する」ボタンが押されたときの処理
+    function submitFormRequest() {
+      const promptText = document.getElementById('prompt-area').value;
+
+      // ボタンを無効化し、ローディング表示
+      submitButton.disabled = true;
+      submitButton.innerText = "構築中...";
+      resultDiv.innerHTML = '<span class="loading-icon">⏳</span>JSONを解析し、フォームを構築中です...';
+
+      // GASのサーバー側関数 `processUserInput` を呼び出す
+      google.script.run
+        .withSuccessHandler(onSuccess) // GASS側での成功時の処理
+        .withFailureHandler(onFailure) // 失敗時の処理
+        .processUserInput(promptText); // 渡すデータ
+    }
+
+    // 2. GASS側での成功時の処理
+    function onSuccess(resultString) {
+      // ボタンを有効化
+      submitButton.disabled = false;
+      submitButton.innerText = "フォームを構築";
+      
+      try {
+        const result = JSON.parse(resultString);
+        
+        if (result.status === 'success') {
+          // 成功した場合、リンクを表示
+          resultDiv.innerHTML = 
+            '<span class="success-icon">✔</span> <strong>フォームが作成されました！</strong><br><br>' +
+            '<b>回答用URL:</b> <a href="' + result.publishedUrl + '" target="_blank" rel="noopener noreferrer">' + result.publishedUrl + '</a><br>' +
+            '<b>編集用URL:</b> <a href="' + result.editUrl + '" target="_blank" rel="noopener noreferrer">' + result.editUrl + '</a>';
+        } else {
+          // GAS側でエラーが起きた場合
+          onFailure(new Error(result.message));
+        }
+      } catch (e) {
+        // JSONのパースに失敗した場合
+        onFailure(e);
+      }
+    }
+
+    // 3. 失敗時の処理
+    function onFailure(error) {
+      // ボタンを有効化
+      submitButton.disabled = false;
+      submitButton.innerText = "フォームを構築";
+      // エラーメッセージを表示
+      resultDiv.innerHTML = '<span class="error-icon">✖</span> <span class="error">エラーが発生しました: ' + error.message + '</span>';
+    }
+  </script>
+  </body>
+</html>
