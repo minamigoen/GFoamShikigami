@@ -1,0 +1,4 @@
+﻿名前,保存先フォルダURL,一般的なアクセス,メールアドレスを収集する,回答のコピーを回答者に送信
+一般,https://drive.google.com/drive/folders/1MvOuodBQiFRDMz-PuKM961TXlRFiHBNJ,,FALSE,FALSE
+一般_demoに保存,https://drive.google.com/drive/folders/19h4miIRbPsyjzcadTeYClRrm-H2adcad,,TRUE,FALSE
+一般2,https://drive.google.com/drive/folders/1MvOuodBQiFRDMz-PuKM961TXlRFiHBNJ,,TRUE,TRUE
