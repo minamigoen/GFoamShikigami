@@ -1,4 +1,4 @@
-# 🧙‍♂️ Gフォーム式神 v1
+# 🧙‍♂️ Gフォーム式神
 
 **Gemini (AI)** と **Google Apps Script (GAS)** を連携させ、  
 APIキー不要・完全無料で **Googleフォームを自動生成** するシステムです。
@@ -53,30 +53,4 @@ AIの力を借りた業務ツール作成をチームで共有しやすくし、
 ---
 
 ## 🪄 導入方法（セットアップ）
-
-### ステップ1: Geminiプロンプトの準備
-1. 以下のリンクからGeminiプロンプト共有ページを開く。  
-2. ご自身のGeminiにプロンプトを保存またはコピー。  
-3. 保存したプロンプトの **共有リンク** を発行し、URLをコピー。  
-　（後で `index.html` に貼り付けます）
-
----
-
-### ステップ2: Google Apps Script (GAS) の設定
-1. Google Driveで  
-　「**新規 → その他 → Google Apps Script**」を選択。  
-2. デフォルトの `コード.gs` に  
-　このリポジトリの `コード.gs` を**丸ごとコピー＆ペースト**。  
-3. 「ファイル → 新規作成 → HTMLファイル」で  
-　`index` という名前のファイルを作成。  
-4. `index.html` にリポジトリの `index.html` を**全貼り付け**。
-
----
-
-### ステップ3: index.html の設定（重要）
-
-1. `index.html` の `<script>` タグ内を開き、以下を探します：
-
-```javascript
-// ▼▼▼ 1. 設定箇所 (GitHub公開用) ▼▼▼
-const GEM_PROMPT_URL = "YOUR_GEMINI_PROMPT_SHARE_LINK_HERE";
+https://note.com/_cop/n/n6fbe4e0bacb1
