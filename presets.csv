@@ -1,4 +1,5 @@
-﻿名前,保存先フォルダURL,一般的なアクセス,メールアドレスを収集する,回答のコピーを回答者に送信
-一般,https://drive.google.com/drive/folders/XXXXXXXXXXXXXXXXXXX,,FALSE,FALSE
-一般_demoに保存,https://drive.google.com/drive/folders/XXXXXXXXXXXXXXXXXXX,,TRUE,FALSE
-一般2,https://drive.google.com/drive/folders/XXXXXXXXXXXXXXXXXXX,,TRUE,TRUE
+﻿名前,保存先フォルダURL,メールアドレスを収集する,回答のコピーを回答者に送信
+一般,https://drive.google.com/drive/folders/XXXXXXXXXXXXXXXXXXX,FALSE,FALSE
+一般_demoに保存,https://drive.google.com/drive/folders/XXXXXXXXXXXXXXXXXXX,TRUE,FALSE
+一般2,https://drive.google.com/drive/folders/XXXXXXXXXXXXXXXXXXX,TRUE,TRUE
+
